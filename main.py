@@ -276,9 +276,33 @@ top5 = (
 chart_data = top5.set_index("movieNm")[["audiCnt"]]
 
 st.bar_chart(
+# ============================================================
+# 관객수 상위 5편 막대그래프
+# ============================================================
+
+st.subheader("📊 관객수 상위 5편")
+
+# 관객수가 많은 순서로 정렬한 뒤 상위 5편 선택
+top5 = (
+    df.sort_values(
+        by="audiCnt",
+        ascending=False
+    )
+    .head(5)
+    .reset_index(drop=True)
+)
+
+# 그래프용 데이터
+# 이미 관객수가 많은 순서로 정렬되어 있습니다.
+chart_data = top5[
+    ["movieNm", "audiCnt"]
+].set_index("movieNm")
+
+st.bar_chart(
     chart_data,
     x_label="영화",
     y_label="관객수"
+)
 )
 
 
